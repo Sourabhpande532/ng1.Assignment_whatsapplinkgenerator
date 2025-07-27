@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="get your Whatsapp link from just your phone number"
+    />
+    <title>Whatsapp Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <hgroup>
+        <h1>Whatsapp Link Generator</h1>
+        <p>get your Whatsapp link from just your phone number</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <fieldset role="group">
+        <input
+          type="number"
+          id="phoneInput"
+          placeholder="Enter Whatsapp Phone Number"
+        />
+        <input type="submit" id="generateUrl" value="Generate WAMi Link" />
+      </fieldset>
+      <section>
+        <p id="outputResult" class="contrast"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+
+    <script>
+      function getWhatsAppUrl(userNumber) {
+        return "https://wa.me/+91" + userNumber;
+      }
+      function handleGenerateUrl() {
+        const inputElement = document.getElementById("phoneInput");
+        const resultElement = document.getElementById("outputResult");
+        const userNumber = inputElement.value.trim();
+        if (
+          userNumber === "" ||
+          isNaN(userNumber) ||
+          !Number.isInteger(Number(userNumber))
+        ) {
+          resultElement.innerHTML = `<span style="color:red;">Please enter a valid number.</span>`;
+          return;
+        }
+        if (userNumber.length < 10) {
+          resultElement.innerHTML =
+            '<span style="color: yellow;">Number must be at least 10 digits.</span>';
+          return;
+        }
+        const whatsAppNumber = userNumber;
+        const whatsappUrl = getWhatsAppUrl(whatsAppNumber);
+        resultElement.innerHTML = `<a href="${whatsappUrl}" target= "_blank">${whatsappUrl}</a>`;
+      }
+      const buttonElement = document.getElementById("generateUrl");
+      buttonElement.addEventListener("click", handleGenerateUrl);
+    </script>
+  </body>
+</html>
